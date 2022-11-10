@@ -1,5 +1,6 @@
 #include "PhoneBook.hpp"
 #include <iostream>
+#include <stdlib.h>
 
 PhoneBook::PhoneBook(void)
 {
@@ -50,42 +51,57 @@ void	PhoneBook::start_phone(void)
 
 void	PhoneBook::ft_add_contact(void)
 {
-	std::string buff;
+	std::string buff ("");
 	int i = Contact::get_nb_inst() % 8;
 
-	std::cout << "First name: ";
-	std::cin >> buff;
-	this->_contact[i].set_first_name(buff);
+	while (buff.length() == 0)
+	{
+		std::cout << "First name: ";
+		std::getline (std::cin, buff);
+		this->_contact[i].set_first_name(buff);
+	}
+	buff.clear();
 
-	std::cout << "Last name: ";
-	std::cin >> buff;
-	this->_contact[i].set_last_name(buff);
+	while (buff.length() == 0)
+	{
+		std::cout << "Last name: ";
+		std::getline (std::cin, buff);
+		this->_contact[i].set_last_name(buff);
+	}
+	buff.clear();
 
-	std::cout << "Nickname: ";
-	std::cin >> buff;
-	this->_contact[i].set_nickname(buff);
+	while (buff.length() == 0)
+	{
+		std::cout << "Nickname: ";
+		std::getline (std::cin, buff);
+		this->_contact[i].set_nickname(buff);
+	}
+	buff.clear();
 
-	std::cout << "Phone number: ";
-	std::cin >> buff;
-	this->_contact[i].set_phone_number(buff);
+	while (buff.length() == 0)
+	{
+		std::cout << "Phone number: ";
+		std::getline (std::cin, buff);
+		this->_contact[i].set_phone_number(buff);
+	}
+	buff.clear();
 
-	std::cout << "Darkest secret: ";
-	std::cin >> buff;
-	this->_contact[i].set_darkest_secret(buff);
+	while (buff.length() == 0)
+	{
+		std::cout << "Darkest secret: ";
+		std::getline (std::cin, buff);
+		this->_contact[i].set_darkest_secret(buff);
+	}
 
 	this->_contact[i].set_index(i + 1);
 	Contact::add_nb_inst();
-
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	return ;
 }
 
 void	PhoneBook::ft_search(void)
 {
-	int i = -1;
-	std::string str_tmp ("\n");
+	int i;
 
 	if (Contact::get_nb_inst() == 0)
 	{
@@ -93,16 +109,12 @@ void	PhoneBook::ft_search(void)
 		return ;
 	}
 	print_all_contacts();
-	while (i > Contact::get_nb_inst() || i > 8 || i < 1)
+	std::cout << "Please enter a valid index number: ";
+	while (!(std::cin >> i) || i > Contact::get_nb_inst() || i > 8 || i < 1)
 	{
-		std::cout << "Please enter a valid index number: ";
-		std::cin >> i;
-		if (i > Contact::get_nb_inst() || i > 8 || i < 1)
-		{
-			std::cout << "Invalid index number" << std::endl;
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
+		std::cout << "Invalid index number. Please enter a valid index number: " << std::endl;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
 	this->_contact[i - 1].print_full_contact();
 	std::cin.clear();

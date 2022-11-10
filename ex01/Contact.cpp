@@ -86,21 +86,25 @@ void		Contact::set_darkest_secret(std::string str)
 
 void		Contact::print_contact(void) const
 {
+	std::cout << std::setw(10);
 	std::cout << this->_index << " | ";
 
 	std::string cuted_string = this->_first_name.substr(0, 10);
 	if (this->_first_name.length() >= 10)
 		cuted_string.replace(9, 1, ".");
+	std::cout << std::setw(10);
 	std::cout << cuted_string << " | ";
 
 	std::string cuted_string2 = this->_last_name.substr(0, 10);
 	if (this->_last_name.length() >= 10)
 		cuted_string2.replace(9, 1, ".");
+	std::cout << std::setw(10);
 	std::cout << cuted_string2 << " | ";
 
 	std::string cuted_string3 = this->_nickname.substr(0, 10);
 	if (this->_nickname.length() >= 10)
 		cuted_string3.replace(9, 1, ".");
+	std::cout << std::setw(10);
 	std::cout << cuted_string3;
 
 	std::cout << std::endl;

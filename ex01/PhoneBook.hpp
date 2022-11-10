@@ -10,8 +10,6 @@ public:
 	~PhoneBook(void);
 
 	void	start_phone(void);
-	void	get_promp_from_cin(void);
-	bool	evaluate_prompt(void);
 	bool	get_exit_status(void) const;
 	void	set_exit_status(int i);
 	void	ft_add_contact(void);

@@ -13,26 +13,6 @@ PhoneBook::~PhoneBook(void)
 	return ;
 }
 
-void	PhoneBook::get_promp_from_cin(void)
-{
-	std::cout << "Phonebook : ";
-	std::getline (std::cin, this->_prompt);
-	return ;
-}
-
-bool	PhoneBook::evaluate_prompt(void)
-{
-	std::string str_add ("ADD");
-	std::string str_search ("SEARCH");
-	std::string str_exit ("EXIT");
-
-	if (str_exit.compare(this->_prompt) == 0)
-		this->_exit_status = true;
-	else if (str_add.compare(this->_prompt) == 0 || str_search.compare(this->_prompt) == 0)
-		return (true);
-	return (false);
-}
-
 bool	PhoneBook::get_exit_status(void) const
 {
 	return this->_exit_status;
@@ -47,21 +27,24 @@ void	PhoneBook::set_exit_status(int i)
 	return ;
 }
 
+
 void	PhoneBook::start_phone(void)
 {
 	std::string str_add ("ADD");
+	std::string str_exit ("EXIT");
 	std::string str_search ("SEARCH");
 
-	PhoneBook::get_promp_from_cin();
-	if (PhoneBook::evaluate_prompt() == true)
+	while (!(this->_prompt.compare(str_exit) == 0))
 	{
-		if(str_add.compare(this->_prompt) == 0)
+		std::cout << "Phonebook : ";
+		std::getline (std::cin, this->_prompt);
+		if(str_exit.compare(this->_prompt) == 0)
+			this->_exit_status = true;
+		else if(str_add.compare(this->_prompt) == 0)
 			ft_add_contact();
 		else if(str_search.compare(this->_prompt) == 0)
 			ft_search();
 	}
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	return ;
 }
 
@@ -70,28 +53,21 @@ void	PhoneBook::ft_add_contact(void)
 	std::string buff;
 	int i = Contact::get_nb_inst() % 8;
 
-	while(buff.length() == 0)
-	{
-		std::cout << "First name: ";
-		std::cin >> buff;
-	}
+	std::cout << "First name: ";
+	std::cin >> buff;
 	this->_contact[i].set_first_name(buff);
 
-	buff.clear();
 	std::cout << "Last name: ";
 	std::cin >> buff;
 	this->_contact[i].set_last_name(buff);
-	buff.clear();
 
 	std::cout << "Nickname: ";
 	std::cin >> buff;
 	this->_contact[i].set_nickname(buff);
-	buff.clear();
 
 	std::cout << "Phone number: ";
 	std::cin >> buff;
 	this->_contact[i].set_phone_number(buff);
-	buff.clear();
 
 	std::cout << "Darkest secret: ";
 	std::cin >> buff;
@@ -100,24 +76,37 @@ void	PhoneBook::ft_add_contact(void)
 	this->_contact[i].set_index(i + 1);
 	Contact::add_nb_inst();
 
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 	return ;
 }
 
 void	PhoneBook::ft_search(void)
 {
-	int i;
+	int i = -1;
+	std::string str_tmp ("\n");
 
+	if (Contact::get_nb_inst() == 0)
+	{
+		std::cout << "The contact list is empty" << std::endl;
+		return ;
+	}
 	print_all_contacts();
-	std::cout << "Please enter a valid index number: ";
-	std::cin >> i;
-	// // MANAGER ERROR string
-	// if (i > Contact::get_nb_inst() || i > 8)
-	// {
-	// 	std::cout << "Invalid index number. Please enter a valid index number";
-	// 	return ;
-	// }
+	while (i > Contact::get_nb_inst() || i > 8 || i < 1)
+	{
+		std::cout << "Please enter a valid index number: ";
+		std::cin >> i;
+		if (i > Contact::get_nb_inst() || i > 8 || i < 1)
+		{
+			std::cout << "Invalid index number" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+	}
 	this->_contact[i - 1].print_full_contact();
-
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	return ;
 }
 

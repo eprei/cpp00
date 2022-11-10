@@ -5,7 +5,7 @@
 Contact::Contact(void)
 {
 	// std::cout << "contact has been created" << std:: endl;
-	Contact::_nb_inst += 1;
+	// Contact::_nb_inst += 1;
 	// std::cout << "instance number" << Contact::get_nb_inst() << std::endl;
 	return ;
 }
@@ -16,11 +16,17 @@ Contact::~Contact(void)
 	return ;
 }
 
-int	Contact::_nb_inst = 0;
+int		Contact::_nb_inst = 0;
 
-int	Contact::get_nb_inst(void)
+int		Contact::get_nb_inst(void)
 {
 	return Contact::_nb_inst;
+}
+
+void	Contact::add_nb_inst(void)
+{
+	Contact::_nb_inst += 1;
+	return ;
 }
 
 std::string	Contact::get_first_name(void) const
@@ -80,6 +86,8 @@ void		Contact::set_darkest_secret(std::string str)
 
 void		Contact::print_contact(void) const
 {
+	std::cout << this->_index << " | ";
+
 	std::string cuted_string = this->_first_name.substr(0, 10);
 	if (this->_first_name.length() >= 10)
 		cuted_string.replace(9, 1, ".");
@@ -97,5 +105,26 @@ void		Contact::print_contact(void) const
 
 	std::cout << std::endl;
 
+	return ;
+}
+
+void		Contact::print_full_contact(void) const
+{
+	std::cout << "First name: " << this->_first_name << std::endl;
+	std::cout << "Last name: " << this->_last_name << std::endl;
+	std::cout << "Nickname: " << this->_nickname << std::endl;
+	std::cout << "Phone number: " << this->_phone_number << std::endl;
+	std::cout << "Darkest secret: " << this->_darkest_secret << std::endl;
+	return ;
+}
+
+int			Contact::get_index(void) const
+{
+	return this->_index;
+}
+
+void		Contact::set_index(int i)
+{
+	this->_index = i;
 	return ;
 }

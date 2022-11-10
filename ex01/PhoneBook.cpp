@@ -60,54 +60,70 @@ void	PhoneBook::start_phone(void)
 		else if(str_search.compare(this->_prompt) == 0)
 			ft_search();
 	}
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	return ;
 }
 
 void	PhoneBook::ft_add_contact(void)
 {
-	Contact new_contact;
 	std::string buff;
+	int i = Contact::get_nb_inst() % 8;
 
-	std::cout << "First name: ";
-	std::cin >> buff;
-	new_contact.set_first_name(buff);
+	while(buff.length() == 0)
+	{
+		std::cout << "First name: ";
+		std::cin >> buff;
+	}
+	this->_contact[i].set_first_name(buff);
+
 	buff.clear();
-
 	std::cout << "Last name: ";
 	std::cin >> buff;
-	new_contact.set_last_name(buff);
+	this->_contact[i].set_last_name(buff);
 	buff.clear();
 
 	std::cout << "Nickname: ";
 	std::cin >> buff;
-	new_contact.set_nickname(buff);
+	this->_contact[i].set_nickname(buff);
 	buff.clear();
 
 	std::cout << "Phone number: ";
 	std::cin >> buff;
-	new_contact.set_phone_number(buff);
+	this->_contact[i].set_phone_number(buff);
 	buff.clear();
 
 	std::cout << "Darkest secret: ";
 	std::cin >> buff;
-	new_contact.set_darkest_secret(buff);
+	this->_contact[i].set_darkest_secret(buff);
 
-	new_contact.print_contact();
-	this->_contact[Contact::get_nb_inst() % 8 - 1] = new_contact;
+	this->_contact[i].set_index(i + 1);
+	Contact::add_nb_inst();
 
-	std::cout << "numero de contactos = " << Contact::get_nb_inst() % 8 << std::endl;
 	return ;
 }
 
 void	PhoneBook::ft_search(void)
 {
+	int i;
+
 	print_all_contacts();
+	std::cout << "Please enter a valid index number: ";
+	std::cin >> i;
+	// // MANAGER ERROR string
+	// if (i > Contact::get_nb_inst() || i > 8)
+	// {
+	// 	std::cout << "Invalid index number. Please enter a valid index number";
+	// 	return ;
+	// }
+	this->_contact[i - 1].print_full_contact();
+
 	return ;
 }
 
 void	PhoneBook::print_all_contacts(void) const
 {
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 8 && i < Contact::get_nb_inst(); i++)
 		this->_contact[i].print_contact();
 	return ;
 }

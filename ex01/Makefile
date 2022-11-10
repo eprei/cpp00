@@ -1,15 +1,15 @@
-#CXX = c++
-CXX = g++-12
+CXX = c++
+#CXX = g++-12
 
 NAME = PhoneBook
 
 SRCS = main.cpp Contact.cpp PhoneBook.cpp
 
-CFLAGS = -Werror -Wextra -Wall -std=c++98 -pedantic
+CFLAGS = -g -Werror -Wextra -Wall -std=c++98 # -pedantic
 
 OBJ = $(SRCS:.cpp=.o)
 
-.c.o:
+.cpp.o:
 	$(CXX) $(CFLAGS) -c $^ -o $@
 
 all: $(NAME)

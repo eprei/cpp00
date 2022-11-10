@@ -5,7 +5,7 @@ NAME = PhoneBook
 
 SRCS = main.cpp Contact.cpp PhoneBook.cpp
 
-CFLAGS = -g -Werror -Wextra -Wall -std=c++98 # -pedantic
+CFLAGS = -Werror -Wextra -Wall -std=c++98 -pedantic # -g
 
 OBJ = $(SRCS:.cpp=.o)
 

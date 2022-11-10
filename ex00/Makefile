@@ -5,11 +5,11 @@ NAME = megaphone
 
 SRCS = megaphone.cpp
 
-CFLAGS = -Werror -Wextra -Wall -std=c++98 -pedantic
+CFLAGS = -Werror -Wextra -Wall -std=c++98 -pedantic #-g
 
 OBJ = $(SRCS:.cpp=.o)
 
-.c.o:
+.cpp.o:
 	$(CXX) $(CFLAGS) -c $^ -o $@
 
 all: $(NAME)

@@ -1,6 +1,7 @@
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <stdlib.h>
+#include <limits>
 
 PhoneBook::PhoneBook(void)
 {

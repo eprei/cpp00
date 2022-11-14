@@ -5,7 +5,7 @@ NAME = megaphone
 
 SRCS = megaphone.cpp
 
-CFLAGS = -Werror -Wextra -Wall -std=c++98 -pedantic #-g
+CFLAGS = -Werror -Wextra -Wall -std=c++98 #-pedantic #-g
 
 OBJ = $(SRCS:.cpp=.o)
 
